@@ -14,6 +14,9 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -36,14 +39,20 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => true,
             'rules' => [
+                '/' => 'site/index',
+                '/phones/check/<id:[0-9]+>' => 'phones/check',
+                '/phones/add-phone/<id:[0-9]+>' => 'phones/add-phone',
+                '/phones/add-review/<id:[0-9]+>' => 'phones/add-review',
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'phones'],
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];
