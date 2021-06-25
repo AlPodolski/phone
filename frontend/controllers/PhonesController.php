@@ -4,10 +4,13 @@ namespace frontend\controllers;
 
 use common\models\PhoneReview;
 use common\models\Phones;
+use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
+use yii\filters\auth\HttpBearerAuth;
+use yii\filters\auth\QueryParamAuth;
 use Yii;
 
-class PhonesController extends \yii\rest\Controller
+class PhonesController extends \yii\rest\ActiveController
 {
 
 
@@ -15,6 +18,22 @@ class PhonesController extends \yii\rest\Controller
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'items',
     ];
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => CompositeAuth::class,
+            'authMethods' => [
+                HttpBasicAuth::class,
+                HttpBearerAuth::class,
+                QueryParamAuth::class,
+            ],
+        ];
+        return $behaviors;
+    }
+
+    public $modelClass = Phones::class;
 
     public function init()
     {

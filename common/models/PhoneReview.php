@@ -3,15 +3,32 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "phone_review".
  *
  * @property int|null $phone_id
  * @property string|null $review
+ * @property int $id
+ * @property int|null $created_at
+ * @property int|null $updated_at
+ * @property int|null $status 0 отзыв не подтвержден 1 отзыв пубоикуется 
  */
 class PhoneReview extends \yii\db\ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    PhoneReview::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    PhoneReview::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -26,7 +43,7 @@ class PhoneReview extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['phone_id'], 'integer'],
+            [['phone_id', 'created_at', 'updated_at', 'status'], 'integer'],
             [['review'], 'string', 'max' => 255],
         ];
     }
@@ -39,6 +56,10 @@ class PhoneReview extends \yii\db\ActiveRecord
         return [
             'phone_id' => 'Phone ID',
             'review' => 'Review',
+            'id' => 'ID',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'status' => 'Status',
         ];
     }
 }
