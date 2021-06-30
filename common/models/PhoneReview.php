@@ -17,6 +17,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class PhoneReview extends \yii\db\ActiveRecord
 {
+
+    const CHECK_REVIEW = 1;
+    const NOT_CHECK_REVIEW = 0;
+
     public function behaviors()
     {
         return [
@@ -54,11 +58,11 @@ class PhoneReview extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'phone_id' => 'Phone ID',
-            'review' => 'Review',
+            'phone_id' => 'Ид телефона',
+            'review' => 'Отзыв',
             'id' => 'ID',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата обновления',
             'status' => 'Status',
         ];
     }
