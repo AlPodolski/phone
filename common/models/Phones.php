@@ -10,6 +10,8 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property int $id
  * @property string|null $phone
+ * @property integer|null $created_at
+ * @property integer|null $updated_at
  */
 class Phones extends \yii\db\ActiveRecord
 {
@@ -42,6 +44,7 @@ class Phones extends \yii\db\ActiveRecord
     {
         return [
             [['phone'], 'string', 'max' => 25],
+            [['created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -53,12 +56,17 @@ class Phones extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'phone' => 'Phone',
+            'created_at' => 'Дата создания',
         ];
     }
 
     public function getReview()
     {
-        return $this->hasMany(PhoneReview::class, ['phone_id' => 'id']);
+        return $this->hasMany(PhoneReview::class, ['phone_id' => 'id'])->orderBy('id DESC');
+    }
+    public function getReviewCount()
+    {
+        return $this->hasOne(PhoneReview::class, ['phone_id' => 'id'])->count();
     }
 
 }

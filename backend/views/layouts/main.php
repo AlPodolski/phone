@@ -65,6 +65,12 @@ AdminLteAsset::register($this);
                                 <p>Отзывы на номера</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/phones/index" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Телефоны</p>
+                            </a>
+                        </li>
 
                     </ul>
                 </li>
