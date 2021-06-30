@@ -46,6 +46,7 @@ return [
             'enableStrictParsing' => true,
             'rules' => [
                 '/' => 'site/index',
+                '/site/signup' => 'site/signup',
                 '/phones/check/<id:[0-9]+>' => 'phones/check',
                 '/phones/add-phone/<id:[0-9]+>' => 'phones/add-phone',
                 '/phones/add-review/<id:[0-9]+>' => 'phones/add-review',
