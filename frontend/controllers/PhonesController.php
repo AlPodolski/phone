@@ -64,13 +64,13 @@ class PhonesController extends \yii\rest\ActiveController
     public function actionAddPhone($phone)
     {
 
-        $phone = new Phones();
+        $phoneClass = new Phones();
 
-        $phone->phone = $phone;
+        $phoneClass->phone = $phone;
 
-        $phone->save();
+        $phoneClass->save();
 
-        return $phone;
+        return $phoneClass;
 
     }
 
