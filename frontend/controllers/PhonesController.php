@@ -61,12 +61,12 @@ class PhonesController extends \yii\rest\ActiveController
         return Phones::find()->where(['phone' => $id])->asArray()->one();
     }
 
-    public function actionAddPhone($id)
+    public function actionAddPhone($phone)
     {
 
         $phone = new Phones();
 
-        $phone->phone = $id;
+        $phone->phone = $phone;
 
         $phone->save();
 

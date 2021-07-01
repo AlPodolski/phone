@@ -48,7 +48,7 @@ return [
                 '/' => 'site/index',
                 '/site/signup' => 'site/signup',
                 '/phones/check/<id:[0-9]+>' => 'phones/check',
-                '/phones/add-phone/<id:[0-9]+>' => 'phones/add-phone',
+                '/phones/add-phone/<phone:[0-9]+>' => 'phones/add-phone',
                 '/phones/add-review/<id:[0-9]+>' => 'phones/add-review',
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'phones'],
             ],
