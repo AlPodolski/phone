@@ -2,8 +2,11 @@
 
 namespace frontend\controllers;
 
+use common\models\City;
+use common\models\CityPhone;
 use common\models\PhoneReview;
 use common\models\Phones;
+use yii\base\BaseObject;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\HttpBearerAuth;
@@ -64,13 +67,65 @@ class PhonesController extends \yii\rest\ActiveController
     public function actionAddPhone($phone)
     {
 
-        $phoneClass = new Phones();
+        $city = false;
 
-        $phoneClass->phone = $phone;
+        if ($cityName = Yii::$app->request->post('city')){
 
-        $phoneClass->save();
+            if (!$city = City::find()
+                ->where(['name' => $cityName])
+                ->orWhere(['value' => $cityName])
+                ->one()){
+                $result[] = 'Город не найден';
+            }
 
-        return $phoneClass;
+        }else{
+
+            $result[] = 'Город не указан';
+
+        }
+
+        if ($phoneClass = Phones::find()->where(['phone' => $phone])->one()){
+
+            $result[] = 'Такой номер уже есть в базе';
+
+        }else{
+
+            $phoneClass = new Phones();
+
+            $phoneClass->phone = $phone;
+
+            if ($phoneClass->validate() and $phoneClass->save()){
+
+                $result[] = $phoneClass;
+
+            }else{
+
+                $result[] = $phoneClass->getErrors();
+
+            }
+
+        }
+
+        if ($city and isset($phoneClass->id) and $phoneClass->id){
+
+            if (!CityPhone::find()->where(['city_id' => $city->id, 'phone_id' => $phoneClass->id])->one()){
+
+                $cityPhone = new CityPhone();
+
+                $cityPhone->phone_id = $phoneClass->id;
+
+                $cityPhone->city_id = $city->id;
+
+                if ($cityPhone->validate() and $cityPhone->save())
+                    $result[] = 'Добавлен новый город на котором встречается этот номер';
+
+                else $result[] = $cityPhone->getErrors();
+
+            } $result[] = 'На этом городе уже есть этот номер';
+
+        }
+
+        return $result;
 
     }
 

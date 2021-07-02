@@ -44,6 +44,7 @@ class Phones extends \yii\db\ActiveRecord
     {
         return [
             [['phone'], 'string', 'max' => 25],
+            ['phone', 'unique', 'targetClass' => self::class, 'message' => 'This number address has already been taken.'],
             [['created_at', 'updated_at'], 'integer'],
         ];
     }

@@ -78,10 +78,11 @@ class SiteController extends Controller
 
         $content = array(
             'text' => "123",
+            'city' => "Алушта",
         );
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,"http://phone.loc/phones/add-review/2?access-token=rS6auEOugpg0TrKZqyXTCd8aEnlIxt-X");
+        curl_setopt($ch, CURLOPT_URL,"http://phone.loc/phones/add-phone/79654142356?access-token=rS6auEOugpg0TrKZqyXTCd8aEnlIxt-X");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($content));  //Post Fields
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
