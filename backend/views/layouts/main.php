@@ -77,6 +77,12 @@ AdminLteAsset::register($this);
                                 <p>Города</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/client-category/index" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Категории клиентов</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
