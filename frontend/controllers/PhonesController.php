@@ -106,20 +106,7 @@ class PhonesController extends \yii\rest\ActiveController
 
         if ($city and isset($phoneClass->id) and $phoneClass->id){
 
-            if (!CityPhone::find()->where(['city_id' => $city->id, 'phone_id' => $phoneClass->id])->one()){
-
-                $cityPhone = new CityPhone();
-
-                $cityPhone->phone_id = $phoneClass->id;
-
-                $cityPhone->city_id = $city->id;
-
-                if ($cityPhone->validate() and $cityPhone->save())
-                    $result[] = 'Добавлен новый город на котором встречается этот номер';
-
-                else $result[] = $cityPhone->getErrors();
-
-            } $result[] = 'На этом городе уже есть этот номер';
+            $result[] = AddReviewHelper::addCity($city->id, $phoneClass->id);
 
         }
 
@@ -152,7 +139,13 @@ class PhonesController extends \yii\rest\ActiveController
 
             $phoneReview->review = $text;
 
-            if (isset($city) and $city) $phoneReview->city_id = $city->id;
+            if (isset($city) and $city){
+
+                AddReviewHelper::addCity($city->id, $phoneData->id);
+
+                $phoneReview->city_id = $city->id;
+
+            }
 
             $phoneReview->client_category_id = $category;
 
