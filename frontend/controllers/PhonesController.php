@@ -6,6 +6,7 @@ use common\models\City;
 use common\models\CityPhone;
 use common\models\PhoneReview;
 use common\models\Phones;
+use frontend\components\helpers\AddReviewHelper;
 use yii\base\BaseObject;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
@@ -71,10 +72,7 @@ class PhonesController extends \yii\rest\ActiveController
 
         if ($cityName = Yii::$app->request->post('city')){
 
-            if (!$city = City::find()
-                ->where(['name' => $cityName])
-                ->orWhere(['value' => $cityName])
-                ->one()){
+            if (!$city = AddReviewHelper::getCity($cityName)){
                 $result[] = 'Город не найден';
             }
 
@@ -138,6 +136,14 @@ class PhonesController extends \yii\rest\ActiveController
 
         $category = Yii::$app->request->post('category');
 
+        $cityName = Yii::$app->request->post('city');
+
+        if ($cityName) {
+
+            $city = AddReviewHelper::getCity($cityName);
+
+        }
+
         if ($phoneData = Phones::find()->where(['phone' => $phone])->one()){
 
             $phoneReview = new PhoneReview();
@@ -145,6 +151,8 @@ class PhonesController extends \yii\rest\ActiveController
             $phoneReview->phone_id = $phoneData->id;
 
             $phoneReview->review = $text;
+
+            if (isset($city) and $city) $phoneReview->city_id = $city->id;
 
             $phoneReview->client_category_id = $category;
 

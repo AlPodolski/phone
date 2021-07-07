@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "phone_review".
@@ -15,6 +16,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $updated_at
  * @property int|null $status 0 отзыв не подтвержден 1 отзыв пубоикуется 
  * @property int|null $client_category_id
+ * @property int|null $city_id
  */
 class PhoneReview extends \yii\db\ActiveRecord
 {
@@ -48,7 +50,7 @@ class PhoneReview extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['phone_id', 'created_at', 'updated_at', 'status', 'client_category_id'], 'integer'],
+            [['phone_id', 'created_at', 'updated_at', 'status', 'client_category_id', 'city_id'], 'integer'],
             [['review'], 'string', 'max' => 255],
         ];
     }
@@ -66,12 +68,18 @@ class PhoneReview extends \yii\db\ActiveRecord
             'updated_at' => 'Дата обновления',
             'status' => 'Status',
             'client_category_id' => 'категории клиента',
+            'city_id' => 'Город',
         ];
     }
 
     public function getClientCategoryId()
     {
         return $this->hasOne(ClientCategory::class, ['id' => 'client_category_id'])->with('parentCategory');
+    }
+
+    public function getCity() : ActiveQuery
+    {
+        return $this->hasOne(City::class, ['id' => 'city_id']);
     }
 
 }

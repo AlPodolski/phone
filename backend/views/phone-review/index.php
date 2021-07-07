@@ -45,18 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'attribute' => 'updated_at',
-                'format' => 'raw',
-                'value' => function ($item) {
-                    /* @var $item PhoneReview */
-
-                    if ($item->updated_at) return date("Y-m-d H:i:s", $item->updated_at);
-
-                    return '-';
-
-                },
-            ],
-            [
                 'attribute' => 'status',
                 'format' => 'raw',
                 'value' => function ($item) {
@@ -82,6 +70,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     $item->getClientCategoryId();
 
                     return $item['clientCategoryId']['parentCategory']['value'].' - '. $item['clientCategoryId']['value'] ;
+
+                },
+            ],
+            [
+                'attribute' => 'city_id',
+                'format' => 'raw',
+                'value' => function ($item) {
+                    /* @var $item PhoneReview */
+
+                    $item->getCity();
+
+                    return $item['city']['value'] ;
 
                 },
             ],
