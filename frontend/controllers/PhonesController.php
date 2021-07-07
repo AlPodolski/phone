@@ -136,6 +136,8 @@ class PhonesController extends \yii\rest\ActiveController
 
         $text = Yii::$app->request->post('text');
 
+        $category = Yii::$app->request->post('category');
+
         if ($phoneData = Phones::find()->where(['phone' => $phone])->one()){
 
             $phoneReview = new PhoneReview();
@@ -143,6 +145,8 @@ class PhonesController extends \yii\rest\ActiveController
             $phoneReview->phone_id = $phoneData->id;
 
             $phoneReview->review = $text;
+
+            $phoneReview->client_category_id = $category;
 
             $phoneReview->save();
 

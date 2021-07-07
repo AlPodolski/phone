@@ -73,6 +73,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 },
             ],
+            [
+                'attribute' => 'client_category_id',
+                'format' => 'raw',
+                'value' => function ($item) {
+                    /* @var $item PhoneReview */
+
+                    $item->getClientCategoryId();
+
+                    return $item['clientCategoryId']['parentCategory']['value'].' - '. $item['clientCategoryId']['value'] ;
+
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

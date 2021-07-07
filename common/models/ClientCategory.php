@@ -40,6 +40,11 @@ class ClientCategory extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getParentCategory()
+    {
+        return $this->hasOne(self::class, ['id' => 'parent_id']);
+    }
+
     public static function getParentItems()
     {
         return self::find()->where(['parent_id' => 0 ])->all();

@@ -14,6 +14,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property int|null $status 0 отзыв не подтвержден 1 отзыв пубоикуется 
+ * @property int|null $client_category_id
  */
 class PhoneReview extends \yii\db\ActiveRecord
 {
@@ -47,7 +48,7 @@ class PhoneReview extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['phone_id', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['phone_id', 'created_at', 'updated_at', 'status', 'client_category_id'], 'integer'],
             [['review'], 'string', 'max' => 255],
         ];
     }
@@ -64,6 +65,13 @@ class PhoneReview extends \yii\db\ActiveRecord
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата обновления',
             'status' => 'Status',
+            'client_category_id' => 'категории клиента',
         ];
     }
+
+    public function getClientCategoryId()
+    {
+        return $this->hasOne(ClientCategory::class, ['id' => 'client_category_id'])->with('parentCategory');
+    }
+
 }
