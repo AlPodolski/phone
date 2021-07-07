@@ -129,19 +129,30 @@ class PhonesController extends \yii\rest\ActiveController
 
     }
 
-    public function actionAddReview($id)
+    public function actionAddReview($phone)
     {
+
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+
         $text = Yii::$app->request->post('text');
 
-        $phoneReview = new PhoneReview();
+        if ($phoneData = Phones::find()->where(['phone' => $phone])->one()){
 
-        $phoneReview->phone_id = $id;
+            $phoneReview = new PhoneReview();
 
-        $phoneReview->review = $text;
+            $phoneReview->phone_id = $phoneData->id;
 
-        $phoneReview->save();
+            $phoneReview->review = $text;
 
-        return $phoneReview;
+            $phoneReview->save();
+
+            return $phoneReview;
+
+        }else{
+
+
+
+        }
 
     }
 

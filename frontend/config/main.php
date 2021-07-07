@@ -50,7 +50,7 @@ return [
                 '/client-category/get' => 'client-category/get',
                 '/phones/check/<id:[0-9]+>' => 'phones/check',
                 '/phones/add-phone/<phone:[0-9]+>' => 'phones/add-phone',
-                '/phones/add-review/<id:[0-9]+>' => 'phones/add-review',
+                '/phones/add-review/<phone:[0-9]+>' => 'phones/add-review',
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'phones'],
             ],
         ],
