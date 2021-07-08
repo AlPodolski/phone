@@ -76,15 +76,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        $content = array(
-            'text' => "123",
-            'city' => "Алушта",
-        );
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,"http://phone.loc/phones/add-phone/79654142356?access-token=rS6auEOugpg0TrKZqyXTCd8aEnlIxt-X");
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($content));  //Post Fields
+        curl_setopt($ch, CURLOPT_URL,"http://phone.loc/phones/view/79152613623?access-token=rS6auEOugpg0TrKZqyXTCd8aEnlIxt-X");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $headers = [

@@ -55,9 +55,9 @@ class PhonesController extends \yii\rest\ActiveController
         return $actions;
     }
 
-    public function actionView($id)
+    public function actionViews($phone)
     {
-        return Phones::find()->where(['phone' => $id])->with('review')->asArray()->one();
+        return Phones::find()->where(['phone' => $phone])->with('review')->asArray()->one();
     }
 
     public function actionCheck($id)

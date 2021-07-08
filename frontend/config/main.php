@@ -48,6 +48,7 @@ return [
                 '/' => 'site/index',
                 '/site/signup' => 'site/signup',
                 '/client-category/get' => 'client-category/get',
+                '/phones/view/<phone:[0-9]+>' => 'phones/views',
                 '/phones/check/<id:[0-9]+>' => 'phones/check',
                 '/phones/add-phone/<phone:[0-9]+>' => 'phones/add-phone',
                 '/phones/add-review/<phone:[0-9]+>' => 'phones/add-review',
