@@ -63,7 +63,10 @@ class Phones extends \yii\db\ActiveRecord
 
     public function getReview()
     {
-        return $this->hasMany(PhoneReview::class, ['phone_id' => 'id'])->orderBy('id DESC')->with('clientCategoryId');
+        return $this->hasMany(PhoneReview::class, ['phone_id' => 'id'])
+            ->where(['status' => PhoneReview::CHECK_REVIEW])
+            ->orderBy('id DESC')
+            ->with('clientCategoryId');
     }
     public function getReviewCount()
     {
